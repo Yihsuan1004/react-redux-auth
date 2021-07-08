@@ -1,21 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Row, Col, Container, Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { createProject } from '../../store/actions/projectAciotn';
+import { useDispatch } from 'react-redux';
+import { AlertPopUp } from '../../utils/alert'
 
 export const CreatProject = () => {
-    const initialValues = {
-        title: '',
-        content: '',
-    };
+    const [show, setShow] = useState(false);
+    const dispatch = useDispatch();
+    const [project, setProject] = useState(
+        {
+            title: '',
+            subTitle: '',
+            content: '',
+        }
+    )
 
     const validationSchema = Yup.object({
         title: Yup.string().required('Required'),
+        subTitle: Yup.string().required('Required'),
         content: Yup.string().required('Required'),
     });
+    const title = document.getElementById('title');
 
-    const onSubmit = (values) => {
-        console.log(JSON.stringify(values, null, 2));
+    const onChange = (e)=>{
+        setProject((prev) =>({
+            ...prev,
+            [e.target.id]: e.target.value
+        }))
+    }
+
+    
+    const onSubmit = (values,{resetForm}) => {
+        // dispatch(createProject(project));
+        setShow(true);
+        console.log(project)
+        resetForm()
     };
 
     return (
@@ -27,16 +48,14 @@ export const CreatProject = () => {
                         <Formik
                             validationSchema={validationSchema}
                             onSubmit={onSubmit}
-                            initialValues={initialValues}
+                            initialValues={project}
                         >
                             {({
                                 handleSubmit,
-                                handleChange,
                                 handleBlur,
+                                handleChange,
                                 values,
                                 touched,
-                                isValid,
-                                isInvalid,
                                 errors,
                             }) => (
                                 <Form noValidate onSubmit={handleSubmit}>
@@ -48,10 +67,28 @@ export const CreatProject = () => {
                                             name="title"
                                             value={values.title}
                                             onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            onKeyUp={onChange}
                                             isInvalid={touched.title && errors.title}
                                         />
                                         <Form.Control.Feedback type="invalid">
                                             {errors.title}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                    <Form.Group controlId="subTitle">
+                                        <Form.Label>SubTitle</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Enter subtitle"
+                                            name="subTitle"
+                                            value={values.subTitle}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            onKeyUp={onChange}
+                                            isInvalid={touched.subTitle && errors.subTitle}
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            {errors.subTitle}
                                         </Form.Control.Feedback>
                                     </Form.Group>
                                     <Form.Group controlId="content">
@@ -60,6 +97,8 @@ export const CreatProject = () => {
                                             name="content"
                                             value={values.content}
                                             onChange={handleChange}
+                                            onKeyUp={onChange}
+                                            onBlur={handleBlur}
                                             isInvalid={touched.content && errors.content}
                                             as="textarea"
                                             rows={4}
@@ -69,7 +108,7 @@ export const CreatProject = () => {
                                             {errors.content}
                                         </Form.Control.Feedback>
                                     </Form.Group>
-                                    <Button className="large-btn" variant="primary" type="submit" >
+                                    <Button className="large-btn" variant="primary" type="submit">
                                         Create
                                     </Button>
                                 </Form>
@@ -78,6 +117,11 @@ export const CreatProject = () => {
                     </Col>
                 </Row>
             </Container>
+            {show === true ? <AlertPopUp    variantType={'success'} 
+                                            setShow={setShow} 
+                                            alertTitle={'Success'}
+                                            content={'Your project was created successfully!'}
+                             /> : null}
         </div>
     )
 }

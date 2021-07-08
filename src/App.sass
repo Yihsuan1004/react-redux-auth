@@ -14,8 +14,13 @@
   img
     width: 40px
     height: 40px
-.dashboard-container
+
+.dashboard-container,.project-detail-container
   background: center / cover no-repeat url('assets/img/dashboard-bg.jpg') 
+
+.dashboard-container > .container, .project-detail-container > .container
+  height: calc(100vh - 56px) //navbar height: 56px 
+  
 .dashboard-container
   .dashboard-title
     margin: '0 auto'
@@ -24,12 +29,18 @@
     width: '28rem'
     text-align: center
 
-.project-detail-container, .create-project-container
-  margin-top: 2.5rem
 .card
   margin: 0 auto
   margin-bottom: 25px
   box-shadow: 2px 2px 5px #888
+
+.project-detail-container 
+  height: calc(100vh - 56px) //navbar height: 56px 
+  .container
+    padding-top: 2.5rem
+.create-project-container   
+  .container
+    padding-top: 2.5rem
 
 .signin-container
   margin-top: 5rem
@@ -42,9 +53,10 @@
     width: 100%
 
 .alert-container
-  max-width: 800px
+  width: 100%
+  max-width: 400px
   position: absolute
-  top: 4rem
+  top: 2rem
   left: 50%
   transform: translateX(-50%)
   -webkit-animation: fadein .3s 
