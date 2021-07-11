@@ -1,22 +1,20 @@
 import React from 'react';
-import { Nav, Navbar, Image } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import userImg from './user.png'
+import { SignedInLink } from './SignedInLink';
+import { SignedOutLink } from './SignedOutLink'
+import { useSelector } from 'react-redux';
+
 export const Navigation  = () => {
+    const state = useSelector((state) => state)
+    const auth = state.firebase.auth;
+    const links = auth.uid ? <SignedInLink /> :  <SignedOutLink />
     return (
         <Navbar bg="dark" expand="md" variant="dark">
             <Navbar.Brand as={Link} to="/">OurPlan</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav" >
-                <Nav className="mr-auto">
-                    <Nav.Item href="/"><Nav.Link as={Link} to="/createProject">Create Project</Nav.Link></Nav.Item>
-                    <Nav.Item href="/"><Nav.Link as={Link} to="/signUp">Sign Up</Nav.Link></Nav.Item>
-                </Nav>
-                <Nav>
-                    <Nav.Item href="/"><Nav.Link as={Link} to="/signIn">LogIn</Nav.Link></Nav.Item>
-                    <Image src={userImg} roundedCircle />
-                    <Nav.Item href="/"><Nav.Link as={Link} to="/signIn">Log Out</Nav.Link></Nav.Item>
-                </Nav>
+            <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+              {links}      
             </Navbar.Collapse>
         </Navbar>
     )

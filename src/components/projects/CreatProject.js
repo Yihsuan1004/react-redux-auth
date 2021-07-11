@@ -3,12 +3,13 @@ import { Row, Col, Container, Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { createProject } from '../../store/actions/projectAciotn';
-import { useDispatch } from 'react-redux';
-import { AlertPopUp } from '../../utils/alert'
+import { useSelector , useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-export const CreatProject = () => {
-    const [show, setShow] = useState(false);
+export const CreatProject = (props) => {
     const dispatch = useDispatch();
+    const userInfo = useSelector(state => state.firebase.profile);
+    const auth = useSelector(state => state.firebase.auth);
     const [project, setProject] = useState(
         {
             title: '',
@@ -16,13 +17,11 @@ export const CreatProject = () => {
             content: '',
         }
     )
-
     const validationSchema = Yup.object({
         title: Yup.string().required('Required'),
         subTitle: Yup.string().required('Required'),
         content: Yup.string().required('Required'),
     });
-    const title = document.getElementById('title');
 
     const onChange = (e)=>{
         setProject((prev) =>({
@@ -30,15 +29,13 @@ export const CreatProject = () => {
             [e.target.id]: e.target.value
         }))
     }
-
-    
     const onSubmit = (values,{resetForm}) => {
-        // dispatch(createProject(project));
-        setShow(true);
-        console.log(project)
-        resetForm()
+        dispatch(createProject(project,userInfo,auth));
+        resetForm();
+        props.history.push('/')
     };
 
+    if(!auth.uid) return <Redirect from="/createProject" to="/signIn"/>
     return (
         <div className="create-project-container">
             <Container className="container-md">
@@ -117,11 +114,6 @@ export const CreatProject = () => {
                     </Col>
                 </Row>
             </Container>
-            {show === true ? <AlertPopUp    variantType={'success'} 
-                                            setShow={setShow} 
-                                            alertTitle={'Success'}
-                                            content={'Your project was created successfully!'}
-                             /> : null}
         </div>
     )
 }

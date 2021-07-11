@@ -1,19 +1,23 @@
 import React,  { useState } from 'react'
 import { Row, Col, Container, Form, Button } from 'react-bootstrap';
-import loginBg from '../../assets/img/computer-bg.jpg'
 import { Formik } from 'formik';
+import { useSelector , useDispatch } from 'react-redux';
+import { signUp } from '../../store/actions/authAction';
+import { Redirect } from 'react-router-dom';
 import * as Yup from 'yup';
-import { AlertPopUp } from '../../utils/alert'
+import loginBg from '../../assets/img/computer-bg.jpg'
+
 
 export const SignUp = () => {
-    const [show, setShow] = useState(false);
-    const initialValues =  { 
+    const dispatch = useDispatch();
+    const auth = useSelector(state => state.firebase.auth);
+    const [userInfo, setUserInfo] = useState({ 
         email: '',
         password: '',
         passwordConfirmation: '',
         firstName: '',
         lastName: '' 
-    };
+    });
     
     const validationSchema = Yup.object({
         email: Yup.string().email('Invalid email format').required('Required'),
@@ -22,12 +26,19 @@ export const SignUp = () => {
         firstName: Yup.string().required('Required'),
         lastName: Yup.string().required('Required'),
     });
+
+    const onChange = (e)=>{
+        setUserInfo((prev) =>({
+            ...prev,
+            [e.target.id]: e.target.value
+        }))
+    }
     
     const onSubmit = (values) => {
-        setShow(true)
-        console.log(JSON.stringify(values, null, 2));
+        dispatch(signUp(userInfo))
     };
 
+    if (auth.uid) return <Redirect to="/" />
     return (
         <div className="signin-container">
             <Container className="container-md">
@@ -41,7 +52,7 @@ export const SignUp = () => {
                         <Formik
                             validationSchema={validationSchema}
                             onSubmit={onSubmit}
-                            initialValues={initialValues}
+                            initialValues={userInfo}
                         >
                         {({
                             handleSubmit,
@@ -62,6 +73,7 @@ export const SignUp = () => {
                                     placeholder="Enter email"
                                     value={values.email}
                                     onChange={handleChange}
+                                    onKeyUp={onChange}
                                     isValid={touched.email && !errors.email}
                                     isInvalid={touched.email && errors.email}
                                 />
@@ -77,6 +89,7 @@ export const SignUp = () => {
                                     placeholder="Password" 
                                     value={values.password}
                                     onChange={handleChange}
+                                    onKeyUp={onChange}
                                     isValid={touched.password && !errors.password}
                                     isInvalid={touched.password && errors.password}
                                 />
@@ -92,6 +105,7 @@ export const SignUp = () => {
                                     placeholder="passwordConfirmation" 
                                     value={values.passwordConfirmation}
                                     onChange={handleChange}
+                                    onKeyUp={onChange}
                                     isValid={touched.passwordConfirmation && !errors.passwordConfirmation}
                                     isInvalid={touched.passwordConfirmation && errors.passwordConfirmation}
                                 />
@@ -107,6 +121,7 @@ export const SignUp = () => {
                                     placeholder="FirstName" 
                                     value={values.firstName}
                                     onChange={handleChange}
+                                    onKeyUp={onChange}
                                     isValid={touched.firstName && !errors.firstName}
                                     isInvalid={touched.firstName && errors.firstName}
                                 />
@@ -122,6 +137,7 @@ export const SignUp = () => {
                                     placeholder="LastName" 
                                     value={values.lastName}
                                     onChange={handleChange}
+                                    onKeyUp={onChange}
                                     isValid={touched.lastName && !errors.lastName}
                                     isInvalid={ touched.lastName && errors.lastName}
                                 />
@@ -138,7 +154,6 @@ export const SignUp = () => {
                     </Col>
                 </Row>
             </Container>
-            {show === true ? <AlertPopUp variantType={'success'} setShow={setShow} /> : null}
         </div>
     )
 }

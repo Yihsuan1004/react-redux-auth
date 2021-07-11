@@ -1,26 +1,59 @@
-@mixin keyframes($name)
-  @-webkit-keyframes #{$name}
-    @content
-  @-moz-keyframes #{$name}
-    @content
-  @-ms-keyframes #{$name}
-    @content
-  @keyframes #{$name}
-    @content
-    
-.navbar-nav 
+// @mixin keyframes($name)
+//   @-webkit-keyframes #{$name}
+//     @content
+//   @-moz-keyframes #{$name}
+//     @content
+//   @-ms-keyframes #{$name}
+//     @content
+//   @keyframes #{$name}
+//     @content
+
+// .alert-container
+//   width: 100%
+//   max-width: 400px
+//   position: absolute
+//   top: 2rem
+//   left: 50%
+//   transform: translateX(-50%)
+//   -webkit-animation: fadein .3s 
+//   animation: fadein .3s
+//   +keyframes(fadein)
+//     from
+//       opacity: 0
+//     to
+//       opacity: 1
+
+//   .card-container
+//     max-width: 600px
+
+.card
+  margin: 0 auto
+  margin-bottom: 25px
+  box-shadow: 2px 2px 5px #888
+
+.navbar-nav
+  align-items: center
   .nav-item
     padding: 0 20px
-  img
+  .user-profile
+    position: relative
     width: 40px
     height: 40px
+    border-radius: 50%
+    background-color: #105e4f
+    color: white
+    p
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%,-50%)
 
-.dashboard-container,.project-detail-container
-  background: center / cover no-repeat url('assets/img/dashboard-bg.jpg') 
+.dashboard-container,.project-detail-container,.create-project-container
+  background: center / cover no-repeat url('assets/img/dashboard-bg.jpg')
 
-.dashboard-container > .container, .project-detail-container > .container
-  height: calc(100vh - 56px) //navbar height: 56px 
-  
+.dashboard-container > .container, .project-detail-container > .container, .create-project-container > .container
+  height: calc(100vh - 56px) //navbar height: 56px
+
 .dashboard-container
   .dashboard-title
     margin: '0 auto'
@@ -28,17 +61,14 @@
     margin-bottom: 2rem
     width: '28rem'
     text-align: center
+  .card
+    background-color: rgba(255,255,255,0.7)
 
-.card
-  margin: 0 auto
-  margin-bottom: 25px
-  box-shadow: 2px 2px 5px #888
-
-.project-detail-container 
-  height: calc(100vh - 56px) //navbar height: 56px 
+.project-detail-container
+  height: calc(100vh - 56px) //navbar height: 56px
   .container
     padding-top: 2.5rem
-.create-project-container   
+.create-project-container
   .container
     padding-top: 2.5rem
 
@@ -48,25 +78,14 @@
     width: 100%
     height: auto
     max-width: 480px
-  .large-btn 
-    margin-bottom: 2rem
+  .large-btn
+    margin-bottom: 1rem
     width: 100%
-
-.alert-container
-  width: 100%
-  max-width: 400px
-  position: absolute
-  top: 2rem
-  left: 50%
-  transform: translateX(-50%)
-  -webkit-animation: fadein .3s 
-  animation: fadein .3s
-  +keyframes(fadein)
-    from
-      opacity: 0
-    to
-      opacity: 1
-
-  .card-container
-    max-width: 600px
-
+.unavailable-page-container
+  margin-top: 2rem
+  text-align: center
+  .unavailable-image
+    margin: 2rem 0
+    max-width: 200px
+    width: 100%
+    height: auto

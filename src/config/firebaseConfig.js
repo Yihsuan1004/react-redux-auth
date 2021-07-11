@@ -11,7 +11,7 @@ var config = {
     storageBucket: "react-authenntication.appspot.com",
     messagingSenderId: "154530069678",
     appId: "1:154530069678:web:ae6fe1169e9ef128ebc13f",
-    measurementId: "G-VYNKEZBCX1"
+    measurementId: "G-VYNKEZBCX1",
 };
 
 // Initialize Firebase
