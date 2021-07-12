@@ -14,7 +14,7 @@ export const PaginationItem = (props) => {
     }
     return (
         <div>
-            <Pagination>
+            <Pagination className="justify-content-center">
                 <Pagination.Prev onClick={prevPage}/>
                 {pageNumbers}
                 <Pagination.Next onClick={nextPage}/>

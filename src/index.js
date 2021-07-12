@@ -37,6 +37,7 @@ const firebaseProps = {
   createFirestoreInstance,
 }
 
+document.title = "OurPlan";
 
 ReactDOM.render(
   // <React.StrictMode

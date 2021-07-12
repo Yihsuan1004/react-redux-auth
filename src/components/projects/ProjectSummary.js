@@ -16,7 +16,7 @@ export const ProjectSummary = ({ projects }) => {
                         <Card.Title>{project.title}</Card.Title>
                         <Card.Text>{project.subTitle}</Card.Text>
                         <Card.Link as={Link} to={{
-                            pathname: `/project/${project.id}`,
+                            pathname: `/projects/${project.id}`,
                             state: { project }
                         }}>See more</Card.Link>
                         <blockquote className="blockquote mb-0">

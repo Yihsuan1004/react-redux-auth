@@ -9,6 +9,7 @@ import { ProjectDetail } from './components/projects/ProjectDetail';
 import { SignUp } from './components/auth/SignUp';
 import { CreatProject } from './components/projects/CreatProject';
 import { My404page } from './components/auth/my404page'
+
 function App() {
   return (
     <Router>
@@ -16,7 +17,7 @@ function App() {
         <Navigation />
         <Switch>
           <Route exact path='/'  component={Dashboard} />
-          <Route path='/project/:id' component={ProjectDetail} />
+          <Route path='/projects/:id' component={ProjectDetail} />
           <Route exact path='/signIn' component={ SignIn } />
           <Route exact path='/signUp' component={ SignUp } />
           <Route exact path='/createProject' component={ CreatProject } />

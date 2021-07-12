@@ -52,14 +52,12 @@
   background: center / cover no-repeat url('assets/img/dashboard-bg.jpg')
 
 .dashboard-container > .container, .project-detail-container > .container, .create-project-container > .container
-  height: calc(100vh - 56px) //navbar height: 56px
+  min-height: calc(100vh - 56px) //navbar height: 56px
 
 .dashboard-container
   .dashboard-title
-    margin: '0 auto'
-    margin-top: 2rem
-    margin-bottom: 2rem
-    width: '28rem'
+    margin: 2.5rem auto
+    width: 28rem
     text-align: center
   .card
     background-color: rgba(255,255,255,0.7)
@@ -68,10 +66,12 @@
   height: calc(100vh - 56px) //navbar height: 56px
   .container
     padding-top: 2.5rem
+.project-list-container
+  .card-body
+    padding: 1rem
 .create-project-container
   .container
     padding-top: 2.5rem
-
 .signin-container
   margin-top: 5rem
   img
