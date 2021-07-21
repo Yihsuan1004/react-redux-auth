@@ -8,5 +8,8 @@
 * 成功登入後會進入到Dashboard畫面，可以即時看到其他使用者加入、發文的通知以及已經發佈的內容。
 * 若輸入無效的網址會導到404畫面。
 
+### Demo網址:
+https://react-authenntication.web.app/signIn
+
 ### Structure
 ![Alt text](/src/assets/img/webstructure.png?raw=true "Optional Title")
