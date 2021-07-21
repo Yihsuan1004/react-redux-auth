@@ -1,6 +1,6 @@
 # react-redux-auth
 
-### 主要使用: HTML / SASS / React / Redux / Firebase
+### 主要使用: SASS / React / Redux / Firebase
 ### React相關: react-router、Formik、yup、react-redux-firebase
 ### 功能說明:
 * 頁面會透過firebase判定使用者是否有登入，若沒有登入則會導入到sign in頁面。
